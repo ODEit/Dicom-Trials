@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width initial-scale=1.0'>
-    <title>Boilermaker</title>
-    <link rel="stylesheet" href="/style.css" />
-    <script defer src="/bundle.js"></script>
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
-</html>
 
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width initial-scale=1.0'>
+  <title>Boilermaker</title>
+  <link rel="stylesheet" href="/style.css" />
+  <!-- BEGIN Optional Codecs -->
+
+  <!-- OpenJPEG based jpeg 2000 codec -->
+  <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/codecs/openJPEG-FixedMemory.js"></script>
+
+  <!-- PDF.js based jpeg 2000 codec -->
+  <!-- NOTE: do not load the OpenJPEG codec if you use this one -->
+  <!--<script src="../../codecs/jpx.min.js"></script>-->
+
+  <!-- JPEG-LS codec -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/codecs/charLS-FixedMemory-browser.js"></script> -->
+
+  <!-- JPEG Lossless codec -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/codecs/jpegLossless.js"></script> -->
+
+  <!-- JPEG Baseline codec -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/codecs/jpeg.js"></script> -->
+
+  <!-- Deflate transfer syntax codec -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/codecs/pako.min.js"></script> -->
+
+  <!-- END Optional Codecs -->
+  <!-- uids -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/tree/master/examples/dicomfile/uids.js"></script> -->
+  <!-- important -->
+  <!-- <script src="//github.com/cornerstonejs/cornerstoneWADOImageLoader/blob/master/examples/utils/initializeWebWorkers.js"></script> -->
+  
+  <script defer src="/bundle.js"></script>
+
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>
