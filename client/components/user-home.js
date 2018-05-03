@@ -36,9 +36,10 @@ import React from 'react'
 import * as cornerstone from "cornerstone-core";
 import * as cornerstoneMath from "cornerstone-math";
 import * as cornerstoneTools from "cornerstone-tools";
-import * as dicomParser from 'dicom-parser';
 import Hammer from "hammerjs";
 import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
+
+import ImageUpload from './ImageUpload'
 
 cornerstoneTools.external.cornerstone = cornerstone;
 cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
@@ -187,6 +188,7 @@ export default class CornerstoneElement extends React.Component {
           WW/WC: {this.state.viewport.voi.windowWidth} /{" "}
           {this.state.viewport.voi.windowCenter}
         </div>
+          <ImageUpload/>
       </div>
     );
   }

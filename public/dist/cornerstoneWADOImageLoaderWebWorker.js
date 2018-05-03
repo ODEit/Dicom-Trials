@@ -115,9 +115,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function calculateMinMax(imageFrame) {
   var strict = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
   var minMax = (0, _getMinMax2.default)(imageFrame.pixelData);
+  console.log(minMax)  
 
+  //--- Developer note : Went into the strict mode to comment out strict
+  
   if (strict === true) {
     if (imageFrame.smallestPixelValue !== minMax.min) {
       console.warn('Image smallestPixelValue tag is incorrect. Rendering performance will suffer considerably.');
@@ -126,10 +128,17 @@ function calculateMinMax(imageFrame) {
     if (imageFrame.largestPixelValue !== minMax.max) {
       console.warn('Image largestPixelValue tag is incorrect. Rendering performance will suffer considerably.');
     }
-  } else {
-    imageFrame.smallestPixelValue = minMax.min;
-    imageFrame.largestPixelValue = minMax.max;
-  }
+  } 
+  // else {
+  //   imageFrame.smallestPixelValue = minMax.min;
+  //   imageFrame.largestPixelValue = minMax.max;
+  // }
+  
+  //changed the else so that it would do it
+
+  imageFrame.smallestPixelValue = minMax.min;
+  imageFrame.largestPixelValue = minMax.max;
+
 }
 
 /***/ }),
