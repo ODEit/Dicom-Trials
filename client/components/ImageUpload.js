@@ -36,12 +36,25 @@ constructor(props){
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.loadAndViewImage = this.loadAndViewImage.bind(this)
+    this.handleImageRender = this.handleImageRender.bind(this)
 }
 
 
 componentDidMount(){
     const element = this.element
     cornerstone.enable(element)
+
+    //found an event handler cornerstone has for when the image renders
+    //Used the event handler to handle when the image fully renders on the canvas
+    element.addEventListener('cornerstoneimagerendered', this.handleImageRender)
+}
+
+componentWillUnmount(){
+    const element = this.element
+
+    element.removeEventListener("cornerstoneimagerendered", this.handleImageRender)
+
+    cornerstone.disable(element)
 }
 
 handleFileChange(e){
@@ -57,6 +70,20 @@ handleFileChange(e){
         this.loadAndViewImage(imageId);
 }
 
+ /*
+    upon full image render on Canvas:
+    get its 64byte stream through toDataURL
+    obtain important looking header information
+    make an axios post in the database
+*/
+
+handleImageRender(){
+    console.log('here')
+    let canvas = this.canvas
+    let copy = this.copy
+    copy.src = canvas.toDataURL()
+}
+
 loadAndViewImage(imageId) {
     const element = this.element
     const start = new Date().getTime();
@@ -66,14 +93,7 @@ loadAndViewImage(imageId) {
         this.setState({viewport})
         cornerstone.displayImage(element, image, viewport)
         if(this.state.loaded === false) {
-            // cornerstoneTools.mouseInput.enable(element);
-            // cornerstoneTools.mouseWheelInput.enable(element);
-            // cornerstoneTools.wwwc.activate(element, 1); // ww/wc is the default tool for left mouse button
-            // cornerstoneTools.pan.activate(element, 2); // pan is the default tool for middle mouse button
-            // cornerstoneTools.zoom.activate(element, 4); // zoom is the default tool for right mouse button
-            // cornerstoneTools.zoomWheel.activate(element); // zoom is the default tool for middle mouse wheel
             console.log(image.minPixelValue, image.maxPixelValue)
-            // cornerstoneTools.imageStats.enable(element);
             this.setState({loaded : true})
         }
        
@@ -83,14 +103,8 @@ loadAndViewImage(imageId) {
         console.log('study Id', image.data.string('x00200010'))
     
 
-    }, function(err) {
-        alert(err);
     })
-    .then(() => {
-        let dataURL = this.canvas.toDataURL()
-        this.copy.src = dataURL
-    })
-    ;
+    .catch(console.error)
 }
 
 render(){
