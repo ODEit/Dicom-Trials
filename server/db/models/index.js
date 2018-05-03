@@ -1,4 +1,8 @@
 const User = require('./user')
+const DicomInfo = require('./dicomInfo')
+
+//following association exposes the getDicomInfos method and addDicomInfo method
+User.hasMany(DicomInfo)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,5 +18,6 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  User,
+  DicomInfo
 }

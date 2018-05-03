@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
-import {me} from './store'
+import {me, getDicomsThunk} from './store'
+
 
 /**
  * COMPONENT
@@ -53,6 +54,9 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      .then(()=>{
+        dispatch(getDicomsThunk())
+      })
     }
   }
 }

@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -37,8 +36,8 @@ const createApp = () => {
   app.use(morgan('dev'))
 
   // body parsing middleware
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.json({limit: '5mb'}))
+  app.use(bodyParser.urlencoded({ extended: true, limit:'5mb' }))
 
   // compression middleware
   app.use(compression())

@@ -40,6 +40,7 @@ import Hammer from "hammerjs";
 import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
 
 import ImageUpload from './ImageUpload'
+import Table from './table'
 
 cornerstoneTools.external.cornerstone = cornerstone;
 cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
@@ -95,54 +96,54 @@ export default class CornerstoneElement extends React.Component {
 
 
   componentDidMount() {
-    const element = this.element;
+    // const element = this.element;
 
-    // Enable the DOM Element for use with Cornerstone
-    cornerstone.enable(element);
+    // // Enable the DOM Element for use with Cornerstone
+    // cornerstone.enable(element);
 
-    // Load the first image in the stack
-    cornerstone.loadImage(this.state.imageId).then(image => {
-      // Display the first image
-      cornerstone.displayImage(element, image);
+    // // Load the first image in the stack
+    // cornerstone.loadImage(this.state.imageId).then(image => {
+    //   // Display the first image
+    //   cornerstone.displayImage(element, image);
 
-      // Add the stack tool state to the enabled element
-      const stack = this.props.stack;
-      cornerstoneTools.addStackStateManager(element, ["stack"]);
-      cornerstoneTools.addToolState(element, "stack", stack);
+    //   // Add the stack tool state to the enabled element
+    //   const stack = this.props.stack;
+    //   cornerstoneTools.addStackStateManager(element, ["stack"]);
+    //   cornerstoneTools.addToolState(element, "stack", stack);
 
-      // cornerstoneTools.mouseInput.enable(element);
-      // cornerstoneTools.mouseWheelInput.enable(element);
-      // cornerstoneTools.wwwc.activate(element, 1); // ww/wc is the default tool for left mouse button
-      // cornerstoneTools.pan.activate(element, 2); // pan is the default tool for middle mouse button
-      // cornerstoneTools.zoom.activate(element, 4); // zoom is the default tool for right mouse button
-      // cornerstoneTools.zoomWheel.activate(element); // zoom is the default tool for middle mouse wheel
+    //   cornerstoneTools.mouseInput.enable(element);
+    //   cornerstoneTools.mouseWheelInput.enable(element);
+    //   cornerstoneTools.wwwc.activate(element, 1); // ww/wc is the default tool for left mouse button
+    //   cornerstoneTools.pan.activate(element, 2); // pan is the default tool for middle mouse button
+    //   cornerstoneTools.zoom.activate(element, 4); // zoom is the default tool for right mouse button
+    //   cornerstoneTools.zoomWheel.activate(element); // zoom is the default tool for middle mouse wheel
 
-      // cornerstoneTools.touchInput.enable(element);
-      // cornerstoneTools.panTouchDrag.activate(element);
-      // cornerstoneTools.zoomTouchPinch.activate(element);
+    //   cornerstoneTools.touchInput.enable(element);
+    //   cornerstoneTools.panTouchDrag.activate(element);
+    //   cornerstoneTools.zoomTouchPinch.activate(element);
 
-      element.addEventListener(
-        "cornerstoneimagerendered",
-        this.onImageRendered
-      );
-      element.addEventListener("cornerstonenewimage", this.onNewImage);
-      window.addEventListener("resize", this.onWindowResize);
-    });
+    //   element.addEventListener(
+    //     "cornerstoneimagerendered",
+    //     this.onImageRendered
+    //   );
+    //   element.addEventListener("cornerstonenewimage", this.onNewImage);
+    //   window.addEventListener("resize", this.onWindowResize);
+    // });
   }
 
   
   componentWillUnmount() {
-    const element = this.element;
-    element.removeEventListener(
-      "cornerstoneimagerendered",
-      this.onImageRendered
-    );
+    // const element = this.element;
+    // element.removeEventListener(
+    //   "cornerstoneimagerendered",
+    //   this.onImageRendered
+    // );
 
-    element.removeEventListener("cornerstonenewimage", this.onNewImage);
+    // element.removeEventListener("cornerstonenewimage", this.onNewImage);
 
-    window.removeEventListener("resize", this.onWindowResize);
+    // window.removeEventListener("resize", this.onWindowResize);
 
-    cornerstone.disable(element);
+    // cornerstone.disable(element);
   }
 
 
@@ -174,7 +175,7 @@ export default class CornerstoneElement extends React.Component {
   render() {
     return (
       <div>
-        <div
+        {/* <div
           className="viewportElement"
           style={divStyle}
           ref={input => {
@@ -187,8 +188,9 @@ export default class CornerstoneElement extends React.Component {
         <div style={bottomRightStyle}>
           WW/WC: {this.state.viewport.voi.windowWidth} /{" "}
           {this.state.viewport.voi.windowCenter}
-        </div>
+        </div> */}
           <ImageUpload/>
+          <Table/>
       </div>
     );
   }

@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
 import * as cornerstone from "cornerstone-core";
 import * as cornerstoneMath from "cornerstone-math";
 import * as cornerstoneTools from "cornerstone-tools";
 import * as dicomParser from 'dicom-parser';
 import Hammer from "hammerjs";
 import * as cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
+
+
+import {addDicomThunk} from '../store'
 
 cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 
@@ -26,13 +30,16 @@ const divStyle = {
 
 cornerstoneWADOImageLoader.webWorkerManager.initialize(config)
 
-export default class ImageUpload extends Component{
+class ImageUpload extends Component{
 constructor(props){
     super(props);
     this.state = {
         files: [],
         viewport: cornerstone.getDefaultViewport(null,undefined),
-        loaded: false
+        loaded: false,
+        patientId: '',
+        studyId: '',
+        studyDesc: ''
     }
     this.handleFileChange = this.handleFileChange.bind(this)
     this.loadAndViewImage = this.loadAndViewImage.bind(this)
@@ -64,7 +71,6 @@ handleFileChange(e){
         // Add the file to the cornerstoneFileImageLoader and get unique
         // number for that file
         const file = e.target.files[0];
-        console.log(file)
         const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
         console.log('imageID here : ', imageId)
         this.loadAndViewImage(imageId);
@@ -80,9 +86,17 @@ handleFileChange(e){
 handleImageRender(){
     console.log('here')
     let canvas = this.canvas
-    let copy = this.copy
-    copy.src = canvas.toDataURL()
+    let dataURL = canvas.toDataURL()
+
+    let dicomInfo = {
+        image: dataURL,
+        studyDesc: this.state.studyDesc,
+        patientId: this.state.patientId,
+        studyId: this.state.studyId
+    }
+    this.props.handleAddDicom(dicomInfo)
 }
+
 
 loadAndViewImage(imageId) {
     const element = this.element
@@ -97,12 +111,12 @@ loadAndViewImage(imageId) {
             this.setState({loaded : true})
         }
        
-        console.log('study description',image.data.string('x00081030'))
-        console.log('patients name', image.data.string('x00100010'))
-        console.log('patients id', image.data.string('x00100020') )
-        console.log('study Id', image.data.string('x00200010'))
-    
-
+        this.setState({
+            patientId: image.data,
+            studyDesc: image.data.string('x00081030'),
+            patientId: image.data.string('x00100020'),
+            studyId: image.data.string('x00200010')
+        })
     })
     .catch(console.error)
 }
@@ -120,12 +134,24 @@ render(){
             >
                 <canvas className = "cornerstone-canvas" ref = {input => {this.canvas = input}}/>
             </div>
-
-            <img className = 'cornerstone-copy' ref = {input => {this.copy = input}}></img>
-
         </div>
     )
 }
 }
 
- 
+
+const mapState = (state) => {
+    return {
+
+    }
+}
+
+const mapDispatch = (dispatch) => {
+    return {
+    handleAddDicom(dicomInfo){
+        dispatch(addDicomThunk(dicomInfo))
+    }
+    }
+}
+
+export default connect(mapState, mapDispatch) (ImageUpload)
