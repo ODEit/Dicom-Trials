@@ -1,4 +1,7 @@
+/**Might work on later */
 
+
+import React from 'react'
 import * as cornerstone from "cornerstone-core";
 import * as cornerstoneMath from "cornerstone-math";
 import * as cornerstoneTools from "cornerstone-tools";
