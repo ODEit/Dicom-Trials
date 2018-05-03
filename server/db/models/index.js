@@ -2,7 +2,7 @@ const User = require('./user')
 const DicomInfo = require('./dicomInfo')
 
 //following association exposes the getDicomInfos method and addDicomInfo method
-User.hasMany(DicomInfo)
+User.hasMany(DicomInfo, {as: 'Dicom'})
 
 /**
  * If we had any associations to make, this would be a great place to put them!

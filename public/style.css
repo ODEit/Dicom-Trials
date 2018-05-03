@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 a {
@@ -18,4 +18,78 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+
+.buttons-left {
+  display: flex;
+  justify-content: left;
+  margin-bottom: .7rem;
+  align-content: center;
+}
+
+.dicom-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dicom-info-string {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dicom-info-string > * {
+  padding: 1rem;
+}
+
+.dicom-info-label {
+  font-size: 1.5rem;
+}
+
+.table-container {
+  position: relative;
+  overflow-y: scroll;
+  height: 40rem;
+}
+
+.dicom-grid{
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  grid-template-rows: minmax(3rem, 7.5rem);
+  text-align: center;
+  color: black;
+}
+
+.dicom-grid > * {
+  justify-self: center;
+  align-self:  center;
+
+}
+
+.table-header{
+  font-size: 1.5rem;
+}
+
+.thumbnail{
+  max-height: 7rem;
+  max-width: 7rem;
+}
+
+.navlinks {
+  transition : all .3s ease-in;
+  padding: .5rem;
+}
+
+/* .navlinks:hover{
+  background-color: cornflowerblue;
+} */
+
+.footer {
+  height: 1rem;
+  margin-top: .5rem;
+  border-top: solid black 0.01rem;
 }

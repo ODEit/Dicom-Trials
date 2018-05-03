@@ -1,28 +1,51 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-const Table = (props) =>{
+import {getDicomsThunk} from '../store'
 
+class Table extends Component{
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount(){
+        this.props.handleGetDicoms()
+    }
+
+    render(){
     return(
-        <div>
-            {/* {props.dicoms.length && props.dicoms.map((dicom,key) => {
+        <div className = 'table-container'>
+        <div className = 'dicom-grid table-header'>
+            <div>Image</div>
+            <div>Study Description</div>
+            <div>Study Id</div>
+            <div>Patient Id</div>
+        </div>
+            {this.props.dicoms.length && this.props.dicoms.map((dicom,key) => {
                 return(
-                    <div key = {key}>
-                        <span>{dicom.studyDesc}</span>
-                        <img src = {dicom.imageURL}></img>
+                    <div key = {key} className = 'dicom-grid'>
+                        <img className = 'thumbnail' src = {dicom.imageURL}></img>
+                        <div>{dicom.studyDesc}</div> 
+                        <div>{dicom.studyId}</div>
+                        <div>{dicom.patientId}</div>
                     </div>
                 )
-            })} */}
-            {/* <img src = 'https://s3.amazonaws.com/dicom-trial/9u5NILUK8gvFCQSmbsWUJ'></img> */}
-            <img src = 'https://s3.amazonaws.com/dicom-trial/ppVeucOMHEcf28QBNvu20'></img>
+            })}
         </div>
     ) 
+    }
 }
-
 const mapState = (state) =>{
     return{
         dicoms: state.dicom.dicoms
     }
 }
+const mapDispatch = dispatch => {
+    return{
+    handleGetDicoms(){
+        dispatch(getDicomsThunk())
+    }   
+    }
+}
 
-export default connect(mapState)(Table)
+export default connect(mapState, mapDispatch)(Table)

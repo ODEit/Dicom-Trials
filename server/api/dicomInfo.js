@@ -2,15 +2,9 @@ const router = require('express').Router()
 const { DicomInfo } = require('../db/models')
 const AWS = require('aws-sdk');
 const nano = require('nanoid')
-const multer = require('multer')
+
 
 const s3 = new AWS.S3();
-
-const upload = multer({
-    storage: multer.memoryStorage(),
-    // file size limitation in bytes
-    limits: { fileSize: 52428800 },
-  });
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -20,14 +14,15 @@ AWS.config.update({
 
 
 router.get('/', (req, res, next) => {
-    res.json(req.user.getDicomInfos())
+    req.user.getDicom()
+    .then(dicoms => {
+        res.json(dicoms)
+    })
 })
 
 router.post('/', (req, res, next) => {
     const genKey = nano()
-    console.log(req.body.image)
     let image = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""), 'base64')
-    console.log(image)
     const params = {
         Bucket: 'dicom-trial',
         Key: genKey,
@@ -44,7 +39,7 @@ router.post('/', (req, res, next) => {
         }else{
             DicomInfo.create(req.body)
             .then( dicomInfo => {
-                req.user.addDicomInfo(dicomInfo)
+                req.user.addDicom(dicomInfo)
                 res.json(dicomInfo)
             })
         }
