@@ -16,6 +16,7 @@ var config = {
     webWorkerPath: '/dist/cornerstoneWADOImageLoaderWebWorker.js',
     taskConfiguration: {
         'decodeTask': {
+            initializeCodecsOnStartup: true,
             codecsPath: '/dist/cornerstoneWADOImageLoaderCodecs.min.js'
         }
     }
@@ -72,7 +73,7 @@ class ImageUpload extends Component {
 
         // Add the file to the cornerstoneFileImageLoader and get unique
         // number for that file
-        const file = e.target.files[0];
+        const file = e.target.files[0]
         const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
         console.log('imageID here : ', imageId)
         this.loadAndViewImage(imageId);
@@ -106,6 +107,7 @@ class ImageUpload extends Component {
         this.setState({
             save: false
         })
+        this.input.value = ''
     }
 
 
@@ -136,7 +138,7 @@ class ImageUpload extends Component {
         return (
             <div>
                 <div className='buttons-left'>
-                    <input type='file' onChange={this.handleFileChange} />
+                    <input type='file' ref = {input => this.input = input} onChange={this.handleFileChange} />
                     {this.state.save && <button className='save-button' onClick={this.handleSave}>Save to Database</button>}
                 </div>
                 <div className='dicom-info'>

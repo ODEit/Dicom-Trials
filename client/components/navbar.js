@@ -9,16 +9,16 @@ const Navbar = ({ handleClick, isLoggedIn, counter }) => (
     <h1>DICOM Uploader</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div className = 'navbar'>
           {/* The navbar will show these links after you log in */}
-          <NavLink className = 'navlinks' to="/home">Dicom Upload Center</NavLink>
+          <NavLink className = 'navlinks' to="/uploadingCenter">Dicom Upload Center</NavLink>
           <a className = 'navlinks' href="#" onClick={handleClick}>
             Logout
           </a>
-          <NavLink className = 'navlinks' to ='/dicomTable'>Table {counter ? counter: null}</NavLink>
+          <NavLink className = 'navlinks counter' to ='/dicomTable'>Table <span>{counter ? counter: null} </span></NavLink>
         </div>
       ) : (
-        <div>
+        <div className = 'navbar'>
           {/* The navbar will show these NavLinks before you log in */}
           <NavLink className = 'navlinks' to="/login">Login</NavLink>
           <NavLink className = 'navlinks' to="/signup">Sign Up</NavLink>

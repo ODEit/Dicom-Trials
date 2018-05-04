@@ -20,6 +20,14 @@ Also setup a postgreSQL database and make its name the same as the package.json'
 
 After that you're good to go.
 
+## Transfer syntax support
+
+Supports all at the link here provided by Cornerstones wadoimageloader. 
+
+https://github.com/cornerstonejs/cornerstoneWADOImageLoader/blob/master/docs/TransferSyntaxes.md
+
+Configuring the config for the webworkers can boost speed and transition in the upload center.
+
 
 
 

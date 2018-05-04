@@ -20,6 +20,24 @@ form div {
   display: inline-block;
 }
 
+.navlinks {
+  padding: .5rem;
+}
+
+.navbar{
+  display: flex;
+  align-content: center;
+}
+
+.counter {
+  display: flex;
+}
+
+.counter > span {
+  margin-left: 1rem;
+  color:gray; 
+}
+
 
 .buttons-left {
   display: flex;
@@ -79,14 +97,6 @@ form div {
   max-width: 7rem;
 }
 
-.navlinks {
-  transition : all .3s ease-in;
-  padding: .5rem;
-}
-
-/* .navlinks:hover{
-  background-color: cornflowerblue;
-} */
 
 .footer {
   height: 1rem;
