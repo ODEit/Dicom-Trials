@@ -42,7 +42,6 @@ class ImageUpload extends Component {
             studyDesc: '',
             save: false
         }
-        // this.handleFileChange = this.handleFileChange.bind(this)
         this.loadAndViewImage = this.loadAndViewImage.bind(this)
         this.handleImageRender = this.handleImageRender.bind(this)
         this.handleSave = this.handleSave.bind(this)
@@ -54,44 +53,44 @@ class ImageUpload extends Component {
         cornerstone.enable(element)
 
         const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(this.props.file)
+       
         //found an event handler cornerstone has for when the image renders
         //Used the event handler to handle when the image fully renders on the canvas
+       
         element.addEventListener('cornerstoneimagerendered', this.handleImageRender)
         console.log('imageID here : ', imageId)
         this.loadAndViewImage(imageId);
     }
 
     componentWillUnmount() {
-        const element = this.element
-        console.log('hi')
-        this.handleSave()
-        element.removeEventListener("cornerstoneimagerendered", this.handleImageRender)
 
+        //unmount happens when save button in USERHOME component is clicked
+        this.handleSave()
+        
+        const element = this.element
+        console.log('hi, componentWillUnmount')
+        element.removeEventListener("cornerstoneimagerendered", this.handleImageRender)
         cornerstone.disable(element)
     }
 
-    // handleFileChange(e) {
-    //     e.stopPropagation()
-    //     e.preventDefault()
-
-    //     // Add the file to the cornerstoneFileImageLoader and get unique
-    //     // number for that file
-    //     const file = e.target.files[0]
-    //     const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
-        
-    // }
 
     /*
        upon full image render on Canvas:
-       get its 64byte stream through toDataURL
-       obtain important looking header information
-       make an axios post in the database
+       add to savecounter's counter in the redux store
    */
 
     handleImageRender() {
        this.props.handleSaveCounterChange()
     }
 
+
+     /*
+       When this function is called
+       get canvas's data in 64byte encoding 
+       through toDataURL obtain important looking 
+       header information and make an axios post to 
+       the database
+   */
     handleSave() {
         let canvas = this.canvas
         let dataURL = canvas.toDataURL()
@@ -132,7 +131,6 @@ class ImageUpload extends Component {
         return (
             <div>
                 <div className='buttons-left'>
-                    {/* <input type='file' ref = {input => this.input = input} onChange={this.handleFileChange} /> */}
                 </div>
                 <div className='dicom-info'>
                     <div

@@ -34,7 +34,11 @@ export class UserHome extends Component {
       <div>
         <h3>Welcome, {this.props.email}. When the save button appears you can save your files </h3>
         Select DICOMS : <input onChange={this.handleFileChange} type='file' ref={input => this.input = input} multiple></input>
-        {this.state.files.length && this.state.files.length === this.props.saveCounter ? <button onClick={this.props.handleSave.bind(this)}>Save</button> : null}
+        {
+          //Only display button when files length, and number of canvas's rendered equal eachother (unless equal to 0)
+
+          this.state.files.length && this.state.files.length === this.props.saveCounter ? <button onClick={this.props.handleSave.bind(this)}>Save</button> : null
+        }
         {this.state.files.length ? this.state.files.map((file, key) => {
           return (
             <ImageUpload key={key} file={file} />
