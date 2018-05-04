@@ -125,7 +125,6 @@ class ImageUpload extends Component {
             }
 
             this.setState({
-                patientId: image.data,
                 studyDesc: image.data.string('x00081030'),
                 patientId: image.data.string('x00100020'),
                 studyId: image.data.string('x00200010')
@@ -138,7 +137,7 @@ class ImageUpload extends Component {
         return (
             <div>
                 <div className='buttons-left'>
-                    <input type='file' ref = {input => this.input = input} onChange={this.handleFileChange} />
+                    <input type='file' ref={input => this.input = input} onChange={this.handleFileChange} />
                     {this.state.save && <button className='save-button' onClick={this.handleSave}>Save to Database</button>}
                 </div>
                 <div className='dicom-info'>
