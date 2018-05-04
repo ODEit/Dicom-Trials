@@ -8,7 +8,7 @@ import Hammer from "hammerjs";
 import * as cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
 
 
-import { addDicomThunk } from '../store'
+import { addDicomThunk, changeSaveCounter  } from '../store'
 
 cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 
@@ -35,7 +35,6 @@ class ImageUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: [],
             viewport: cornerstone.getDefaultViewport(null, undefined),
             loaded: false,
             patientId: '',
@@ -43,7 +42,7 @@ class ImageUpload extends Component {
             studyDesc: '',
             save: false
         }
-        this.handleFileChange = this.handleFileChange.bind(this)
+        // this.handleFileChange = this.handleFileChange.bind(this)
         this.loadAndViewImage = this.loadAndViewImage.bind(this)
         this.handleImageRender = this.handleImageRender.bind(this)
         this.handleSave = this.handleSave.bind(this)
@@ -54,30 +53,33 @@ class ImageUpload extends Component {
         const element = this.element
         cornerstone.enable(element)
 
+        const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(this.props.file)
         //found an event handler cornerstone has for when the image renders
         //Used the event handler to handle when the image fully renders on the canvas
         element.addEventListener('cornerstoneimagerendered', this.handleImageRender)
+        console.log('imageID here : ', imageId)
+        this.loadAndViewImage(imageId);
     }
 
     componentWillUnmount() {
         const element = this.element
-
+        console.log('hi')
+        this.handleSave()
         element.removeEventListener("cornerstoneimagerendered", this.handleImageRender)
 
         cornerstone.disable(element)
     }
 
-    handleFileChange(e) {
-        e.stopPropagation()
-        e.preventDefault()
+    // handleFileChange(e) {
+    //     e.stopPropagation()
+    //     e.preventDefault()
 
-        // Add the file to the cornerstoneFileImageLoader and get unique
-        // number for that file
-        const file = e.target.files[0]
-        const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
-        console.log('imageID here : ', imageId)
-        this.loadAndViewImage(imageId);
-    }
+    //     // Add the file to the cornerstoneFileImageLoader and get unique
+    //     // number for that file
+    //     const file = e.target.files[0]
+    //     const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
+        
+    // }
 
     /*
        upon full image render on Canvas:
@@ -87,11 +89,7 @@ class ImageUpload extends Component {
    */
 
     handleImageRender() {
-        console.log('here')
-        this.setState({
-            save: true
-        })
-
+       this.props.handleSaveCounterChange()
     }
 
     handleSave() {
@@ -104,10 +102,6 @@ class ImageUpload extends Component {
             studyId: this.state.studyId
         }
         this.props.handleAddDicom(dicomInfo)
-        this.setState({
-            save: false
-        })
-        this.input.value = ''
     }
 
 
@@ -138,8 +132,7 @@ class ImageUpload extends Component {
         return (
             <div>
                 <div className='buttons-left'>
-                    <input type='file' ref = {input => this.input = input} onChange={this.handleFileChange} />
-                    {this.state.save && <button className='save-button' onClick={this.handleSave}>Save to Database</button>}
+                    {/* <input type='file' ref = {input => this.input = input} onChange={this.handleFileChange} /> */}
                 </div>
                 <div className='dicom-info'>
                     <div
@@ -184,6 +177,9 @@ const mapDispatch = (dispatch) => {
     return {
         handleAddDicom(dicomInfo) {
             dispatch(addDicomThunk(dicomInfo))
+        },
+        handleSaveCounterChange(){
+            dispatch(changeSaveCounter())
         }
     }
 }
