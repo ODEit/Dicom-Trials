@@ -53,7 +53,8 @@ export default function (state = dicom, action) {
         console.log(action.dicoms)
       return Object.assign({}, state, {dicoms : action.dicoms, counter: 0})
     case ADD_DICOM:
-      return Object.assign({}, state, {counter: counter++})
+        let counter = state.counter + 1
+      return Object.assign({}, state, {counter})
     default:
       return state
   }

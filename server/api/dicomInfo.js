@@ -12,8 +12,7 @@ AWS.config.update({
     subregion: 'us-east-1',
 });
 
-
-router.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => {    
     if (req.user) {
         req.user.getDicom()
             .then(dicoms => {
@@ -26,6 +25,10 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     if (req.user) {
+        // res.json({
+        //     studyDesc: 'hi',
+        // })
+
         const genKey = nano()
         let image = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""), 'base64')
         const params = {
