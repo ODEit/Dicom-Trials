@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, counter }) => (
   <div>
     <h1>DICOM Uploader</h1>
     <nav>
@@ -15,7 +15,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a className = 'navlinks' href="#" onClick={handleClick}>
             Logout
           </a>
-          <NavLink className = 'navlinks' to ='/dicomTable'>Table</NavLink>
+          <NavLink className = 'navlinks' to ='/dicomTable'>Table {counter ? counter: null}</NavLink>
         </div>
       ) : (
         <div>
@@ -34,7 +34,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    counter : state.dicom.counter
   }
 }
 

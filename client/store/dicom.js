@@ -11,15 +11,21 @@ const ADD_DICOM = 'ADD_DICOM'
  * INITIAL STATE
  */
 const dicom = {
-    dicoms: []
+    dicoms: [],
+    counter: 0
 }
 
 /**
  * ACTION CREATORS
  */
+
+ 
 const getDicoms = (dicoms) => ({type: GET_DICOMS, dicoms})
 const removeDicom = (id) => ({type: REMOVE_DICOM, id})
-const addDicom = (dicom) => ({type: ADD_DICOM, dicom})
+
+// Since the dicoms are recieved upon opening up table component,
+// this will just add to counter variable
+const addDicom = () => ({type: ADD_DICOM})
 
 /**
  * THUNK CREATORS
@@ -35,7 +41,7 @@ export const addDicomThunk = (body) =>
  dispatch =>
         axios.post('/api/dicomInfo', body)
          .then(res =>
-         dispatch(addDicom(res.data)))
+         dispatch(addDicom()))
          .catch(err => console.log(err))
 
 /**
@@ -45,9 +51,9 @@ export default function (state = dicom, action) {
   switch (action.type) {
     case GET_DICOMS:
         console.log(action.dicoms)
-      return Object.assign({}, state, {dicoms : action.dicoms})
+      return Object.assign({}, state, {dicoms : action.dicoms, counter: 0})
     case ADD_DICOM:
-      return Object.assign({}, state, {dicoms : state.dicoms.concat(action.dicom)})
+      return Object.assign({}, state, {counter: counter++})
     default:
       return state
   }

@@ -4,7 +4,9 @@
 
 A Dicom uploader that is able to take in multiple different DICOM image types and saves them to the cloud (and send a link to our postgreSQL database)!
 
-Big thanks to the cornerstone crew! There aren't many js libraries I found that helped with decoding DICOM pixel data.
+Big thanks to the cornerstone crew! 
+
+The cornerstone tools: https://github.com/cornerstonejs/cornerstone
 
 ## Setup
 
