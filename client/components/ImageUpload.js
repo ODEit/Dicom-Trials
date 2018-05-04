@@ -8,7 +8,7 @@ import Hammer from "hammerjs";
 import * as cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
 
 
-import { addDicomThunk, changeSaveCounter  } from '../store'
+import { addDicomThunk, changeSaveCounter, resetSave  } from '../store'
 
 cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 
@@ -66,7 +66,7 @@ class ImageUpload extends Component {
 
         //unmount happens when save button in USERHOME component is clicked
         this.handleSave()
-        
+        this.props.handleSaveReset()
         const element = this.element
         console.log('hi, componentWillUnmount')
         element.removeEventListener("cornerstoneimagerendered", this.handleImageRender)
@@ -177,6 +177,9 @@ const mapDispatch = (dispatch) => {
         },
         handleSaveCounterChange(){
             dispatch(changeSaveCounter())
+        },
+        handleSaveReset(){
+            dispatch(resetSave())
         }
     }
 }

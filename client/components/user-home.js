@@ -20,11 +20,10 @@ export class UserHome extends Component {
   handleFileChange(e) {
     e.stopPropagation()
     e.preventDefault()
-
     // Add the file to the cornerstoneFileImageLoader and get unique
     // number for that file
     const files = Array.from(e.target.files)
-
+    console.log('asldlahuwjasdhukna,msdjioajksdnnsaudjk',files.length)
     this.setState({ files })
   }
 
