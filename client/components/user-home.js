@@ -34,12 +34,12 @@ export class UserHome extends Component {
       <div>
         <h3>Welcome, {this.props.email}. When the save button appears you can save your files </h3>
         Select DICOMS : <input onChange={this.handleFileChange} type='file' ref={input => this.input = input} multiple></input>
-       { this.state.files.length && this.state.files.length === this.props.saveCounter ? <button onClick={this.props.handleSave.bind(this)}>Save</button> : null}
-        {this.state.files.length && this.state.files.map((file, key) => {
+        {this.state.files.length && this.state.files.length === this.props.saveCounter ? <button onClick={this.props.handleSave.bind(this)}>Save</button> : null}
+        {this.state.files.length ? this.state.files.map((file, key) => {
           return (
-            <ImageUpload key = {key} file={file} />
+            <ImageUpload key={key} file={file} />
           )
-        })
+        }) : null
         }
       </div>
     )
