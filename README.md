@@ -8,6 +8,8 @@ Big thanks to the cornerstone crew!
 
 The cornerstone tools: https://github.com/cornerstonejs/cornerstone
 
+This project was made with React-Redux, Node, Express, Cornerstone's libraries, Sequelize with postgreSQL database, and AWS S3. 
+
 *For a multiple uploader check the multiple branch*
 
 ## Setup
