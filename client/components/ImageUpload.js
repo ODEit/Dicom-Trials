@@ -118,7 +118,6 @@ class ImageUpload extends Component {
             }
 
             this.setState({
-                patientId: image.data,
                 studyDesc: image.data.string('x00081030'),
                 patientId: image.data.string('x00100020'),
                 studyId: image.data.string('x00200010')
